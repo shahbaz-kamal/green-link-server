@@ -7,7 +7,7 @@ const { MongoClient, ServerApiVersion } = require("mongodb");
 
 // middlewares
 const corsOption = {
-  origin: ["http://localhost:5173","http://localhost:5174"],
+  origin: ["http://localhost:5173", "http://localhost:5174"],
   credentials: true,
 };
 app.use(cors(corsOption));
@@ -40,6 +40,15 @@ async function run() {
     const userCollection = client.db("green-link-db").collection("users");
 
     //// storing user to db
+
+    // getting single  user data
+
+    app.get("/user/:email", async (req, res) => {
+      const email = req?.params?.email;
+      const query = { email };
+      const result = await userCollection.findOne(query);
+      res.send(result);
+    });
 
     app.post("/store-user-info", async (req, res) => {
       const newUser = req.body;
