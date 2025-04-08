@@ -7,7 +7,11 @@ const { MongoClient, ServerApiVersion } = require("mongodb");
 
 // middlewares
 const corsOption = {
-  origin: ["http://localhost:5173", "http://localhost:5174"],
+  origin: [
+    "http://localhost:5173",
+    "http://localhost:5174",
+    "https://green-link-website.netlify.app",
+  ],
   credentials: true,
 };
 app.use(cors(corsOption));
@@ -31,12 +35,12 @@ const client = new MongoClient(uri, {
 async function run() {
   try {
     // Connect the client to the server	(optional starting in v4.7)
-    await client.connect();
+    // await client.connect();
     // Send a ping to confirm a successful connection
-    await client.db("admin").command({ ping: 1 });
-    console.log(
-      "Pinged your deployment. You successfully connected to MongoDB!"
-    );
+    // await client.db("admin").command({ ping: 1 });
+    // console.log(
+    //   "Pinged your deployment. You successfully connected to MongoDB!"
+    // );
     const userCollection = client.db("green-link-db").collection("users");
 
     //// storing user to db
